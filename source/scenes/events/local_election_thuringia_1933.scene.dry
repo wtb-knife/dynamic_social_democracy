@@ -505,64 +505,59 @@ if Q.dvp_exist && ((Q.dvp_relation < (dvp_toleration_threshold + 5) && !Q.lvp_fo
 <hr id="read-marker">
 The bourgeois parties have historically been hostile to us in state politics, especially after the notorious United Left government faced a <i>Reichsexekution</i> years ago.
 
-- @continue_toleration_thuringia
+- @continue_groko_thuringia
+- @continue_spd_majority
+- @continue_left_thuringia
+- @bourgeois_coalition_thuringia
 - @toleration_thuringia
 - @far_right_coalition_thuringia
-- @bourgeois_coalition_thuringia
 - @grand_coalition_thuringia
 - @united_left_thuringia
 - @no_majority
 - @spd_majority
+- @soclib_thuringia_cvp
+- @ddp_thuringia
+- @nazi_thuringia
 
+@nazi_thuringia
+title: The <span style="color: #7A3C00;">**NSDAP**</span> forms a majority government.
+subtitle: Oh Frick... 
+view-if: nsdap_r_thuringia >= 50
+on-arrival: thuringia_nsdap_maj = 1; data_miner_detected = 1; workers_nsdap += 4; new_middle_nsdap += 8; old_middle_nsdap += 12; rural_nsdap += 4; unemployed_kpd -= 4; unemployed_nsdap += 4; sa_strength += 40; sa_militancy += 0.05; prussian_police_loyalty -= 0.05; pro_republic -= 10; coup_progress += 2; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_spd = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0
+go-to: frick
 
-@toleration_thuringia
-title: We will offer our toleration to the bourgeois parties.
-subtitle: We can at least prevent their dependence on the <span style="color: #7A3C00;">**NSDAP**</span>.
-unavailable-subtitle: [? if not toleration_possible: The bourgeois would rather work with <span style="color: #7A3C00;">Nazis</span> than accept our toleration. ?][? if spd_r_thuringia >= 50: We have the votes for an <span style="color: #c00000;">**SPD**</span> majority. ?][? if nsdap_r_thuringia + dnf_r_thuringia + dnvp_r_thuringia < 10 and return_to_normalcy and far_right_coalition_thuringia < 40: The decline of the <span style="color: #7A3C00;">Nazis</span> has left us with little reason to tolerate a right-wing government - or for them to accept our toleration. ?]
-choose-if: toleration_possible and spd_r_thuringia < 50 and (far_right_coalition_thuringia >= 40 or nsdap_r_thuringia + dnf_r_thuringia + dnvp_r_thuringia >= 10 or not return_to_normalcy)
-view-if: bourgeois_coalition_thuringia < 50 and not thuringia_toleration 
-on-arrival: thuringia_right = 1; thuringia_toleration = 1; pro_republic -= 1; rural_nsdap += 2; old_middle_nsdap += 2; rural_other -= 2; old_middle_dnvp -= 2
+The <span style="color: #7A3C00;">Nazis</span> have won a majority of the Landtag!
 
-Surprisingly, through our reconciliation with the bourgeois parties, they have accepted our toleration to prevent the <span style="color: #7A3C00;">**NSDAP**</span> from entering government. However, this provides valuable propaganda for the <span style="color: #7A3C00;">Nazis</span>, who gain support at the expense of the <span style="color: #3E88B3;">**DNVP**</span> and <span style="color: #7FCEB1;">**CNBLP**</span>, who are now tainted by their association with us.
+Guess who's back...
 
-@far_right_coalition_thuringia
-title: The bourgeois parties[? if thuringia_nsdap: once again?] turn to the <span style="color: #7A3C00;">**NSDAP**</span> to maintain their majority.
-subtitle: A testament to how biased the "democratic" parties are when it comes to working with us.
-view-if: far_right_coalition_thuringia >= 50 and bourgeois_coalition_thuringia < 50 
-on-arrival: thuringia_nsdap = 1; workers_nsdap += 2; new_middle_nsdap += 4; old_middle_nsdap += 6; rural_nsdap += 2; unemployed_kpd -= 2; unemployed_nsdap += 2; sa_strength += 20; sa_militancy += 0.05; prussian_police_loyalty -= 0.05; pro_republic -= 5
+@frick
 face-image: img/portraits/frick.jpg
 
-Wilhelm Frick, a convicted Beer Hall Putsch participant, is given control of the Interior and Education Ministries, and by passing an "Enabling Act" through a simple majority as an emergency decree, granting him the power to radically transform Thuringia.
+Wilhelm Frick becomes Minister-President of Thuringia, and this time, there is nothing to restrain him.  Thuringia is, in effect, an authoritarian regime, unless the federal government steps in to act.
 
-Gone are the days of <span style="color: #c00000;">Red</span> Thuringia. Suspected <span style="color: #c00000;">socialists</span> and <span style="color: #D3C24D;">democrats</span> are purged en masse from the civil service. A state police force is established, with Frick preferentially employing <span style="color: #7A3C00;">Nazi</span> officials. All <span style="color: #700000;">communist</span> teachers and mayors are dismissed, and newspapers critical of government policy are banned. [? if (prussia_leader == "Braun" or prussia_leader == "Rosenfeld") and interior_minister_party == "SPD": Fortunately, Carl Severing is able to halt the recruitment of <span style="color: #7A3C00;">Nazis</span> into the police force by suspending state subsidies, effectively ending the practice. ?]
+@ddp_thuringia
+title: We will coalition with the <span style="color: #D3C24D;">**[+ ddp_name +]**</span>, to the exclusion of the <span style="color: #C0A054;">**DVP**</span>.
+subtitle: If the <span style="color: #C0A054;">**DVP**</span> refuses to cooperate, we will simply govern without them.
+view-if: spd_r_thuringia + ddp_r_thuringia >= 50 and dvp_exist and not toleration_possible
+choose-if: ddp_relation >= 80 and ((ddp_ideology != "Right" and not dstp_formed) or ddp_ideology == "Left") and not bourgeois_parliament_ddp and liberal_cooperation < 20
+unavailable-subtitle: [? if ddp_relation < 800: We need higher relations with the <span style="color: #D3C24D;">**[+ ddp_name +]**</span>. ?][? if ddp_ideology == "Right" or dstp_formed: The <span style="color: #D3C24D;">**[+ ddp_name +]**</span> is too right-wing to agree to this. ?][? if bourgeois_parliament_ddp or liberal_cooperation >= 20: The <span style="color: #D3C24D;">**[+ ddp_name +]**</span> is still too closely tied with the <span style="color: #C0A054;">**DVP**</span> to agree to this. ?]
+on-arrival: thuringia_soclib = 1; thuringia_spd = 1; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0;
 
-With control of the Education Ministry, Frick appoints racial researchers and known <span style="color: #7A3C00;">Nazis</span> to top positions at many universities and bans the anti-war book *All Quiet on the Western Front* from being read or played. His attempts to grant Hitler German citizenship have so far failed, forcing Hitler to look elsewhere.
+@soclib_thuringia_cvp
+title: We will coalition with the <span style="color: #FFCC00;">liberals</span>, to the exclusion of the <span style="color: #000000;">**CVP**</span>.
+subtitle: If the <span style="color: #000000;">**CVP**</span> refuses to cooperate, we will simply govern without them.
+view-if: bourgeois_coalition_thuringia < 50 and (spd_r_thuringia + ddp_r_thuringia + dvp_r_thuringia + lvp_r_thuringia >= 50) and cvp_formed and not cvp_coalition_left
+choose-if: (dvp_relation >= 50 and dvp_ideology != "Right" and not lvp_formed and dvp_exist) or (lvp_relation >= 60 and lvp_formed) or (ddp_relation >= 60 and not dvp_exist)
+unavailable-subtitle: We need higher relations with the [? if lvp_formed: <span style="color: #FFCC00;">**LVP**</span>?][? if dvp_exist and not lvp_formed: <span style="color: #C0A054;">**DVP**</span>?][? if not dvp_exist: <span style="color: #D3C24D;">**[+ ddp_name +]**</span>?].
+on-arrival: thuringia_spd = 1; thuringia_soclib = 1; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0
 
-@bourgeois_coalition_thuringia
-title: The incumbent center-right coalition continues governing.
-subtitle: The incumbent coalition holds a majority, one with neither the <span style="color: #7A3C00;">**NSDAP**</span> nor the <span style="color: #c00000;">**SPD**</span>.
-view-if: bourgeois_coalition_thuringia >= 50 and thuringia_right
-on-arrival: thuringia_right = 1; new_middle_dvp += 2; old_middle_dvp += 2; new_middle_other += 2; old_middle_other += 2; rural_other += 2
-
-Unexpectedly, the parties involved in the incumbent government have gained votes, and now no longer require the votes of the <span style="color: #7A3C00;">**NSDAP**</span>. The continuation of the stable leadership over Thuringia will weaken the <span style="color: #7A3C00;">Nazis</span>.
-
-@grand_coalition_thuringia
-title: A [? if lvp_formed: <span style="color: #000000;">We</span><span style="color: #DD0000;">im</span><span style="color: #FFCC00;">ar</span>?][? if not lvp_formed: Grand?] Coalition is formed!
-subtitle: We have somehow reconciled with the bourgeois parties, that they're willing to govern with us again.
-unavailable-subtitle: [? if z_relation < 60 and stegerwald_path: We need higher relations with the [? if z_party_name != "CVP": <span style="color: #000000;">Center Party</span>?][? if z_party_name == "CVP": <span style="color: #000000;">**CVP**</span>?]. ?][? if dvp_toleration_threshold_fail: We need higher relations with the [? if not lvp_formed: <span style="color: #C0A054;">DVP</span>?][? if lvp_formed: <span style="color: #FFCC00;">LVP</span>?]. ?]
-view-if: spd_coalition_thuringia >= 50 and not thuringia_groko
-choose-if: spd_coalition_possible
-on-arrival: thuringia_spd = 1; rural_nsdap -= 2; new_middle_nsdap -= 2; old_middle_nsdap -= 2; new_middle_spd += 2; old_middle_spd += 2; rural_spd += 2; z_relation += 3; ddp_relation += 3; lvp_relation += 3; pro_republic += 3; prussian_police_loyalty += 0.03; sa_strength -= 25
-
-Somehow, the bourgeois parties are willing to form a [? if lvp_formed: <span style="color: #000000;">We</span><span style="color: #DD0000;">im</span><span style="color: #FFCC00;">ar</span>?][? if not lvp_formed: Grand?] Coalition with us.
-
-We will use our positions in government to root out right-wing and <span style="color: #3E88B3;">nationalist</span> sympathies within the civil service and to strengthen <span style="color: #000000;">rep</span><span style="color: #DD0000;">ubl</span><span style="color: #FFCC00;">ican</span> sentiment.
-
-@united_left_thuringia
-title: The <span style="color: #c00000;">**SPD**</span> will form a coalition government with the <span style="color: #700000;">**KPD**</span>.
-subtitle: Will history repeat itself?
-view-if: not red_thuringia and left_coalition_thuringia >= 50 and (kpd_relation >= 40 and kpd_leader == "Conciliators") or (kpd_relation >= 60 and kpd_leader != "Conciliators")
-on-arrival: red_thuringia = 1; z_relation -= 5; ddp_relation -= 5; dvp_relation -= 5; lvp_relation -= 5; coup_progress += 3; hindenburg_angry += 40; rfb_militancy += 0.05; rfb_strength += 100; sa_strength += 50; sh_strength += 50; strife += 1; workers_spd += 3; workers_kpd += 3; unemployed_spd += 3; new_middle_spd -= 3; old_middle_spd -= 3; rural_spd -= 3; communist_coalition += 3; kpd_relation += 10
+@continue_left_thuringia
+title: We will continue our coalition with the <span style="color: #700000;">**KPD**</span>.
+subtitle: The <span style="color: #700000;">United</span> <span style="color: #c00000;">Front</span> marches on.
+view-if: red_thuringia and left_coalition_thuringia >= 50 
+choose-if: (kpd_relation >= 35 and kpd_leader == "Conciliators") or (kpd_relation >= 55 and kpd_leader != "Conciliators")
+unavailable-subtitle: Our parties' relations have deteriorated too far.
+on-arrival: red_thuringia = 1; z_relation -= 3; ddp_relation -= 3; dvp_relation -= 3; lvp_relation -= 3; coup_progress += 2; hindenburg_angry += 20; rfb_militancy += 0.05; rfb_strength += 150; sa_strength += 20; sh_strength += 20; strife += 1; workers_spd += 2; workers_kpd += 2; unemployed_spd += 2; new_middle_spd -= 1; old_middle_spd -= 1; rural_spd -= 1; communist_coalition += 1; kpd_relation += 5; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_spd = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
 on-display: {!  
     var cardEl = document.createElement('div');  
     cardEl.className = "face-figure2";  
@@ -576,7 +571,95 @@ on-display: {!
     contentDiv.appendChild(cardEl);
 !}
 
-Surprisingly, despite reluctance on both sides due to fears that the <span style="color: #808080;">reactionary</span> Hindenburg will order a <i>Reichsexekution</i> if a coalition were to form. <span style="color: #c00000;">Red</span> Thuringia is restored! 
+<span style="color: #c00000;">Red</span> Thuringia survives!  
+
+[? if coup_progress >= 8: Amidst our electoral victory, a far-right coup attempt is rumored to be close at hand.  Proceed with caution. ?]
+
+@continue_spd_majority
+title: The <span style="color: #c00000;">**SPD**</span> maintains its majority.
+subtitle: Congratulations.
+view-if: spd_r_thuringia >= 50 and thuringia_spd_maj
+on-arrival: thuringia_spd = 1; thuringia_spd_maj = 1; rural_nsdap -= 3; new_middle_nsdap -= 4; old_middle_nsdap -= 4; workers_kpd -= 1; unemployed_kpd -= 1; workers_spd += 2; unemployed_spd += 2; new_middle_spd += 3; old_middle_spd += 3; rural_spd += 2; pro_republic += 5; prussian_police_loyalty += 0.06; sa_strength -= 50; dvp_relation -= 3; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
+
+We continue to hold a majority in Thuringia.  The bourgeois parties continue to whine about our reforms in the state, but they are completely irrelevant now.
+
+@continue_groko_thuringia
+title: The [? if lvp_formed: <span style="color: #000000;">We</span><span style="color: #DD0000;">im</span><span style="color: #FFCC00;">ar</span>?][? if not lvp_formed: Grand?] Coalition is maintained!
+subtitle: We remain on good terms with the bourgeois parties, and will govern with them again.
+unavailable-subtitle: [? if cvp_formed and cvp_coalition_right: The <span style="color: #000000;">**CVP**</span> refuses to work with us.?][? if z_relation < 60 and stegerwald_path: Our relations with the [? if z_party_name != "CVP": <span style="color: #000000;">Center Party</span>?][? if z_party_name == "CVP": <span style="color: #000000;">**CVP**</span>?] have deteriorated. ?][? if dvp_toleration_threshold_fail: Our relations with the [? if not lvp_formed: <span style="color: #C0A054;">DVP</span>?][? if lvp_formed: <span style="color: #FFCC00;">LVP</span>?] have deteriorated. ?]
+view-if: spd_coalition_thuringia >= 50 and thuringia_groko
+choose-if: spd_coalition_possible and not (cvp_formed and cvp_coalition_right)
+on-arrival: thuringia_spd = 1; thuringia_groko = 1; rural_nsdap -= 3; new_middle_nsdap -= 3; old_middle_nsdap -= 3; new_middle_spd += 1; old_middle_spd += 1; rural_spd += 1; z_relation += 1; ddp_relation += 1; lvp_relation += 1; pro_republic += 3; prussian_police_loyalty += 0.03; sa_strength -= 25; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
+
+We continue governing as part of the [? if lvp_formed: <span style="color: #000000;">We</span><span style="color: #DD0000;">im</span><span style="color: #FFCC00;">ar</span>?][? if not lvp_formed: Grand?] Coalition in Thuringia.
+
+With our mandate renewed, we double down on our efforts in removing extremists from the civil service.
+
+@toleration_thuringia
+title: We will offer our toleration to the bourgeois parties.
+subtitle: We can at least prevent their dependence on the <span style="color: #7A3C00;">**NSDAP**</span>.
+unavailable-subtitle: [? if not toleration_possible: The bourgeois would rather work with <span style="color: #7A3C00;">Nazis</span> than accept our toleration. ?][? if spd_r_thuringia >= 50: We have the votes for an <span style="color: #c00000;">**SPD**</span> majority. ?][? if nsdap_r_thuringia + dnf_r_thuringia + dnvp_r_thuringia < 10 and return_to_normalcy and far_right_coalition_thuringia < 40: The decline of the <span style="color: #7A3C00;">Nazis</span> has left us with little reason to tolerate a right-wing government - or for them to accept our toleration. ?]
+choose-if: toleration_possible and spd_r_thuringia < 50 and (far_right_coalition_thuringia >= 40 or nsdap_r_thuringia + dnf_r_thuringia + dnvp_r_thuringia >= 10 or not return_to_normalcy)
+view-if: bourgeois_coalition_thuringia < 50 
+on-arrival: thuringia_right = 1; toleration_repeat if thuringia_toleration; workers_spd -= 2 if thuringia_toleration; workers_kpd += 2 if thuringia_toleration; thuringia_toleration = 1; pro_republic -= 1; rural_nsdap += 2; old_middle_nsdap += 2; rural_other -= 2; old_middle_dnvp -= 2; thuringia_nsdap = 0; thuringia_spd = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
+
+[? if not toleration_repeat: Surprisingly, through our reconciliation with the bourgeois parties, they have accepted our toleration to prevent the <span style="color: #7A3C00;">**NSDAP**</span> from entering government. However, this provides valuable propaganda for the <span style="color: #7A3C00;">Nazis</span>, who gain support at the expense of the <span style="color: #3E88B3;">**DNVP**</span> and <span style="color: #7FCEB1;">**CNBLP**</span>, who are now tainted by their association with us. ?]
+
+[? if toleration_repeat: We have once again provided our toleration to the bourgeois parties, and prevented the <span style="color: #7A3C00;">**NSDAP**</span> from entering government.  However, this continued arrangement provides valuable propaganda for both the <span style="color: #7A3C00;">Nazis</span> and the <span style="color: #700000;">Communists</span>. ?]
+
+@far_right_coalition_thuringia
+title: The bourgeois parties[? if thuringia_nsdap: once again?] turn to the <span style="color: #7A3C00;">**NSDAP**</span> to maintain their majority.
+subtitle: A testament to how biased the "democratic" parties are when it comes to working with us.
+view-if: far_right_coalition_thuringia >= 50 and bourgeois_coalition_thuringia < 50 
+on-arrival: thuringia_nsdap = 1; workers_nsdap += 2; new_middle_nsdap += 4; old_middle_nsdap += 6; rural_nsdap += 2; unemployed_kpd -= 2; unemployed_nsdap += 2; sa_strength += 20; sa_militancy += 0.05; prussian_police_loyalty -= 0.05; pro_republic -= 5; thuringia_toleration = 0; thuringia_right = 0; thuringia_spd = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
+face-image: img/portraits/frick.jpg
+
+Wilhelm Frick, a convicted Beer Hall Putsch participant, is given control of the Interior and Education Ministries, and by passing an "Enabling Act" through a simple majority as an emergency decree, granting him the power to radically transform Thuringia.
+
+Gone are the days of <span style="color: #c00000;">Red</span> Thuringia. Suspected <span style="color: #c00000;">socialists</span> and <span style="color: #D3C24D;">democrats</span> are purged en masse from the civil service. A state police force is established, with Frick preferentially employing <span style="color: #7A3C00;">Nazi</span> officials. All <span style="color: #700000;">communist</span> teachers and mayors are dismissed, and newspapers critical of government policy are banned. [? if (prussia_leader == "Braun" or prussia_leader == "Rosenfeld") and interior_minister_party == "SPD": Fortunately, Carl Severing is able to halt the recruitment of <span style="color: #7A3C00;">Nazis</span> into the police force by suspending state subsidies, effectively ending the practice. ?]
+
+With control of the Education Ministry, Frick appoints racial researchers and known <span style="color: #7A3C00;">Nazis</span> to top positions at many universities and bans the anti-war book *All Quiet on the Western Front* from being read or played. His attempts to grant Hitler German citizenship have so far failed, forcing Hitler to look elsewhere.
+
+@bourgeois_coalition_thuringia
+title: [? if thuringia_right: The incumbent center-right coalition continues governing.?][? if not thuringia_right: The old center-right coalition is restored.?]
+subtitle: The[? if thuringia_right: incumbent?] center-right coalition holds a majority, one with neither the <span style="color: #7A3C00;">**NSDAP**</span> nor the <span style="color: #c00000;">**SPD**</span>.
+view-if: bourgeois_coalition_thuringia >= 50 
+on-arrival: thuringia_right = 1; new_middle_dvp += 2; old_middle_dvp += 2; new_middle_other += 2; old_middle_other += 2; rural_other += 2; thuringia_toleration = 0; thuringia_nsdap = 0; thuringia_spd = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
+
+[? if thuringia_right: Unexpectedly, the parties involved in the incumbent government have gained votes, and now no longer require the votes of the <span style="color: #7A3C00;">**NSDAP**</span>. The continuation of the stable leadership over Thuringia will weaken the <span style="color: #7A3C00;">Nazis</span>. ?]
+[? if not thuringia_right: Somehow, the old bourgeois-right coalition has regained a governing majority. ?]
+
+@grand_coalition_thuringia
+title: A [? if lvp_formed: <span style="color: #000000;">We</span><span style="color: #DD0000;">im</span><span style="color: #FFCC00;">ar</span>?][? if not lvp_formed: Grand?] Coalition is formed!
+subtitle: We have somehow reconciled with the bourgeois parties, that they're willing to govern with us again.
+unavailable-subtitle: [? if cvp_formed and not cvp_coalition_left: The <span style="color: #000000;">**CVP**</span> refuses to work with us.?][? if z_relation < 60 and stegerwald_path: We need higher relations with the [? if z_party_name != "CVP": <span style="color: #000000;">Center Party</span>?][? if z_party_name == "CVP": <span style="color: #000000;">**CVP**</span>?]. ?][? if dvp_toleration_threshold_fail: We need higher relations with the [? if not lvp_formed: <span style="color: #C0A054;">DVP</span>?][? if lvp_formed: <span style="color: #FFCC00;">LVP</span>?]. ?]
+view-if: spd_coalition_thuringia >= 50 and not thuringia_groko
+choose-if: spd_coalition_possible and (cvp_coalition_left or not cvp_formed) 
+on-arrival: thuringia_spd = 1; thuringia_groko = 1; rural_nsdap -= 2; new_middle_nsdap -= 2; old_middle_nsdap -= 2; new_middle_spd += 2; old_middle_spd += 2; rural_spd += 2; z_relation += 3; ddp_relation += 3; lvp_relation += 3; pro_republic += 3; prussian_police_loyalty += 0.03; sa_strength -= 25; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
+
+Somehow, the bourgeois parties are willing to form a [? if lvp_formed: <span style="color: #000000;">We</span><span style="color: #DD0000;">im</span><span style="color: #FFCC00;">ar</span>?][? if not lvp_formed: Grand?] Coalition with us.
+
+We will use our positions in government to root out right-wing and <span style="color: #3E88B3;">nationalist</span> sympathies within the civil service and to strengthen <span style="color: #000000;">rep</span><span style="color: #DD0000;">ubl</span><span style="color: #FFCC00;">ican</span> sentiment.
+
+@united_left_thuringia
+title: The <span style="color: #c00000;">**SPD**</span> will form a coalition government with the <span style="color: #700000;">**KPD**</span>.
+subtitle: Will history repeat itself?
+view-if: not red_thuringia and left_coalition_thuringia >= 50 and (kpd_relation >= 40 and kpd_leader == "Conciliators") or (kpd_relation >= 60 and kpd_leader != "Conciliators")
+on-arrival: red_thuringia = 1; z_relation -= 5; ddp_relation -= 5; dvp_relation -= 5; lvp_relation -= 5; coup_progress += 3; hindenburg_angry += 40; rfb_militancy += 0.05; rfb_strength += 100; sa_strength += 50; sh_strength += 50; strife += 1; workers_spd += 3; workers_kpd += 3; unemployed_spd += 3; new_middle_spd -= 3; old_middle_spd -= 3; rural_spd -= 3; communist_coalition += 3; kpd_relation += 10; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_spd = 0; thuringia_groko = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
+on-display: {!  
+    var cardEl = document.createElement('div');  
+    cardEl.className = "face-figure2";  
+
+    var image = new Image();  
+    image.className = "face-img";  
+    image.src = "img/redthuringia.png";  
+
+    cardEl.appendChild(image);  
+    var contentDiv = document.querySelector("#page #mid_panel #content");
+    contentDiv.appendChild(cardEl);
+!}
+
+Surprisingly, despite reluctance on both sides due to fears that the <span style="color: #808080;">reactionary</span> Hindenburg will order a <i>Reichsexekution</i> if a coalition were to form, <span style="color: #c00000;">Red</span> Thuringia is restored! 
 
 Hindenburg’s patience is especially thin. Tread carefully.
 
@@ -584,7 +667,7 @@ Hindenburg’s patience is especially thin. Tread carefully.
 title: The <span style="color: #c00000;">**SPD**</span> forms a majority government.
 subtitle: Congratulations.
 view-if: spd_r_thuringia >= 50 and not thuringia_spd_maj
-on-arrival: thuringia_spd = 1; thuringia_spd_maj = 1; rural_nsdap -= 3; new_middle_nsdap -= 4; old_middle_nsdap -= 4; workers_kpd -= 2; unemployed_kpd -= 2; workers_spd += 2; unemployed_spd += 2; new_middle_spd += 4; old_middle_spd += 4; rural_spd += 3; pro_republic += 5; prussian_police_loyalty += 0.05; sa_strength -= 50
+on-arrival: thuringia_spd = 1; thuringia_spd_maj = 1; rural_nsdap -= 3; new_middle_nsdap -= 4; old_middle_nsdap -= 4; workers_kpd -= 2; unemployed_kpd -= 2; workers_spd += 2; unemployed_spd += 2; new_middle_spd += 4; old_middle_spd += 4; rural_spd += 3; pro_republic += 5; prussian_police_loyalty += 0.05; sa_strength -= 50; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
 
 To the sheer horror of the right-wing parties in Thuringia, an unforeseen occurrence has swept over the state: a complete SPD majority. Members of the far-right cry foul; voter fraud, other forms of subterfuge, and attacks ranging to outright conspiracy is hurled at the results. Nonetheless, <span style="color: #c00000;">Red</span> Thuringia is restored, without the revolutionary concerns of the <span style="color: #D47B9B;">**USPD**</span>/<span style="color: #700000;">**KPD**</span>’s presence in the landtag.
 
@@ -633,7 +716,7 @@ In an effort to avoid this, they are more open to negotiating a toleration agree
 @no_majority_2
 title: A majority still can't be found!
 subtitle: [? if not toleration_possible: This is getting ridiculous. ?][? if toleration_possible: We will refuse to tolerate the bourgeois government, forcing new elections. ?]
-on-arrival: thuringia_1934_time = time + 3; thuringia_no_majority = 1 if not thuringia_no_majority; thuringia_no_majority += 1 if thuringia_no_majority; new_middle_nsdap += 4; old_middle_nsdap += 4; rural_nsdap += 2; unemployed_nsdap += 4; pro_republic -= 3; new_middle_spd -= 3 if toleration_possible; old_middle_spd -= 3 if toleration_possible; rural_spd -= 2 if toleration_possible
+on-arrival: thuringia_1934_time = time + 3; thuringia_no_majority = 1 if not thuringia_no_majority; thuringia_no_majority += 1 if thuringia_no_majority; new_middle_nsdap += 4; old_middle_nsdap += 4; rural_nsdap += 2; unemployed_nsdap += 4; pro_republic -= 3; new_middle_spd -= 3 if toleration_possible; old_middle_spd -= 3 if toleration_possible; rural_spd -= 2 if toleration_possible; thuringia_toleration = 0; thuringia_right = 0; thuringia_nsdap = 0; thuringia_spd = 0; thuringia_groko = 0; red_thuringia = 0; thuringia_spd_maj = 0; thuringia_nsdap_maj = 0; thuringia_soclib = 0
 
 [? if not toleration_possible: The bourgeois parties remain unwilling to accept our offer of toleration. [? if far_right_coalition_thuringia + ddp_r_thuringia >= 50: One option the incumbent coalition has considered is including both the <span style="color: #D3C24D;">**[+ ddp_name +]**</span> and the <span style="color: #7A3C00;">**NSDAP**</span>, but for obvious reasons, both parties have vetoed this proposal. ?]?][? if toleration_possible: By refusing to enter any toleration agreement, and with the bourgeois parties unwilling to let us lead the government, no majority can be found. As a result, we have shouldered much of the blame for the deadlock and are likely to suffer in the next elections. ?]
 
